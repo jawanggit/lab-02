@@ -53,14 +53,23 @@ $.ajax('data/page-1.json')
     });
   });
 
-function hideImg(keyword){
+function hideImg(){
+  $('div').each(function() { //funciton for evaluating what to hide
+      $(this).show();
+  })
   //iterate through the div els that we have created
   //money this is what is being acted on (select) use change
-  console.log($(this));
-  $('div').each(function(keyword) {//inside is div
-    console.log($(this));
-    if (keyword !== $(this).find('img').alt){
+  let keyword = $(this).val(); // returns a keyword
+  console.log(keyword)
+  // console.log($(this));
+  $('div').each(function() { //funciton for evaluating what to hide
+    console.log(keyword);
+    let abc = $(this).find('img')[0].alt;
+    console.log(abc)
+    if ( keyword!== abc){
+      // console.log($(this));
       $(this).hide();
+      
     }
   });
   //compare img alt to the clicked option
@@ -76,6 +85,7 @@ function hideImg(keyword){
   // });
 }
 $('select').on('change', hideImg);
+
 //feature 2 - Create a <select> element which contains unique <option> elements extracted dynamically from the JSON file, one for each keyword.
 // Use an event handler to respond when the user chooses an option from the select menu. Hide all of the images, then show those whose keyword matches the option chosen.
 

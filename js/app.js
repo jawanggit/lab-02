@@ -28,13 +28,10 @@ $.ajax('data/page-1.json')
       $p_template.html( $('#photo-template').html() );
       $p_template.find('h2').text(obj.title);
       $p_template.find('img').attr('src', obj.image_url);
+      $p_template.find('img').attr('alt', obj.keyword);
       $p_template.find('p').text(obj.description);
       $('main').append($p_template);
 
-      // let $opt = $('<option></option>').clone();
-      // $opt.attr("value", obj.keyword);
-      // $opt.text(obj.keyword);
-      // $('select').append($opt);
       // let $uniqueOpt = $('option')
     // $uniqueOpt = jQuery.uniqueSort($uniqueOpt)
     });
@@ -48,8 +45,37 @@ $.ajax('data/page-1.json')
     });
     console.log(uniqueArr);
     // console.log(keywordArr);
-
+    uniqueArr.forEach((value) => {
+      let $opt = $('<option></option>').clone();
+      $opt.attr('value', value);
+      $opt.text(value);
+      $('select').append($opt);
+    });
   });
+
+function hideImg(keyword){
+  //iterate through the div els that we have created
+  //money this is what is being acted on (select) use change
+  console.log($(this));
+  $('div').each(function(keyword) {//inside is div
+    console.log($(this));
+    if (keyword !== $(this).find('img').alt){
+      $(this).hide();
+    }
+  });
+  //compare img alt to the clicked option
+  //if they are the same do not hide them
+  //else hide the div
+//TODO: John wants this
+  // console.log($(this));
+  // $('div').each((keyword) => {//inside is div
+  //   console.log($(this))
+  //   if (keyword !== $(this).find('img').alt){
+  //     $(this).hide();
+  //   }
+  // });
+}
+$('select').on('change', hideImg);
 //feature 2 - Create a <select> element which contains unique <option> elements extracted dynamically from the JSON file, one for each keyword.
 // Use an event handler to respond when the user chooses an option from the select menu. Hide all of the images, then show those whose keyword matches the option chosen.
 
